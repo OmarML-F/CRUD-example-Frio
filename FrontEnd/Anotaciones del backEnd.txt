@@ -1,0 +1,24 @@
+Comandos indispensables:
+
+npm init -y      			(Crea package.json)
+
+npm i express
+
+npm i nodemon -D    y para iniciarlo solo se utiliza npx nodemon index.js
+
+CONSEJO MEJOR INSTALARLO ASI:
+
+npm i nodemon --dev
+
+
+o bien se instala todo de una vez
+npm install express sequelize pg pg-hstore body-parser cors --save
+
+
+
+
+Pasos principales:
+
+1.- Hacer las rutas.
+
+2.- Crear y enlazar el middleware

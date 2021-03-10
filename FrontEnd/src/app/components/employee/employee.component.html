@@ -1,0 +1,88 @@
+
+
+
+
+<div class="card">
+    <p-splitter [style]="{'height': '420px'}"[panelSizes]="[70,10]" [minSizes]="[10,0]"  styleClass="p-mb-5">
+        <ng-template p-template="caption">
+            <div class="p-col p-d-flex p-ai-center p-jc-center">
+                <p-scrollPanel [style]="{width: '100%', height: '400px'}">
+                <p-table #dt  [value]="employeeService.employees"[globalFilterFields]="['name']">
+                    <ng-template pTemplate="caption">
+                        <div style="text-align: right">        
+                            <i class="pi pi-search" style="margin:4px 4px 0 0"></i>
+                            <input type="text" pInputText size="50" placeholder="Buscar por nombre" (input)="dt.filterGlobal($event.target.value, 'contains')" style="width:auto">
+                        </div>
+                    </ng-template>
+                    <ng-template pTemplate="header">
+                        <tr>
+                            <th pSortableColumn="id">Id <p-sortIcon field="id"></p-sortIcon></th>
+                            <th pSortableColumn="name">Nombre <p-sortIcon field="name"></p-sortIcon></th>
+                            <th pSortableColumn="email">Email <p-sortIcon field="email"></p-sortIcon></th>
+                            <th pSortableColumn="phone">Telefono <p-sortIcon field="phone"></p-sortIcon></th>
+                            <th style="width: 7.5rem"></th>
+                        </tr>
+                    </ng-template>
+                    <ng-template pTemplate="body" let-employee let-expanded="expanded">
+                        <tr> 
+                            <td>{{employee.id}}</td>
+                            <td>{{employee.name}}</td>
+                            <td>{{employee.email}}</td>
+                            <td>{{employee.phone}}</td>
+                            <td class="demo-container p-p-0 p-p-sm-1 p-p-md-2 p-p-lg-3">
+                                <button pButton pRipple type="button" icon="pi pi-user-edit" class="p-button-rounded p-button-help p-button-outlined" (click) = "employeeUpdate(employee)"></button>
+                                <button pButton pRipple type="button" icon="pi pi-times" class="p-button-rounded p-button-danger p-button-outlined" (click) = "employeeDelete(employee.id)"></button>
+                            </td>
+                        </tr>
+                    </ng-template>
+                </p-table>
+            </p-scrollPanel>
+            </div>
+        </ng-template>
+        
+        <ng-template>
+            <form #employeeForm="ngForm">
+               <input type="hidden" name="id" [(ngModel)]="employeeService.selectedEmployee.id">     
+                <div class="p-col p-d-flex p-ai-center p-jc-center">                       
+                    <div class="card">
+                        
+                        <h2>Formulario</h2>
+                        <div class="p-field p-grid">
+                            <label for="name" class="p-col-fixed" style="width:100px">Nombre</label>
+                            <div class="p-col">
+                                <input
+                                id="name" 
+                                name="name"
+                                type="text"
+                                pInputText 
+                                pKeyFilter="alpha"
+                                [(ngModel)]="employeeService.selectedEmployee.name" 
+                                placeholder="John Doe">
+                            </div>
+                        </div>
+                        <div class="p-field p-grid">
+                            <label for="email" class="p-col-fixed" style="width:100px">Email</label>
+                            <div class="p-col"> 
+                                <input id="email" type="text" pInputText name="email" pKeyFilter="email"
+                                placeholder="JohnDoe58@gmail.com"
+                                [(ngModel)]="employeeService.selectedEmployee.email" > 
+                            </div>
+                        </div>
+                        <div class="p-field p-grid">
+                            <label for="phone" class="p-col-fixed" style="width:100px">Telefono</label>
+                            <div class="p-col">
+                                <input id="phone" type="text" pInputText name="phone" pKeyFilter="pint"
+                                placeholder="5521569845"
+                                [(ngModel)]="employeeService.selectedEmployee.phone" > 
+                            </div>
+                        </div>
+                        <div class="demo-container p-mx-auto">
+                        <button pButton pRipple type="button" label="SAVE" class="p-mb-2 p-mr-2 p-button-outlined p-button-info" (click) = "addEmployee(employeeForm)"></button>
+                        <button pButton pRipple type="button" label="CLEAR" class="p-mb-2 p-mr-2 p-button-outlined p-button-warning"(click) = "limpiarFormulario(employeeForm)"></button>
+                    </div>
+                </div>
+            </div>
+        </form>
+        </ng-template>
+    </p-splitter>
+</div>
